@@ -21,7 +21,7 @@ export default function FeaturedInSection() {
       viewport={{ once: true, margin: "-100px" }}
       className="py-24 bg-surface/5 border-y border-white/5 overflow-hidden"
     >
-      <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <div className="px-5 md:px-20 max-w-container-max mx-auto">
         <motion.p variants={itemFadeUp} className="text-center font-label-sm text-white/80 uppercase tracking-[0.2em] mb-12">Featured In</motion.p>
         <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20">
           {publications.map((pub) => (

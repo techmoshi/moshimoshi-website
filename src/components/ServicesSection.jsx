@@ -68,7 +68,7 @@ export default function ServicesSection({ highlightedSections = [] }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"
+      className="py-32 px-5 md:px-20 max-w-container-max mx-auto"
     >
       <motion.div variants={itemFadeUp} className="text-center mb-20">
         <span className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">What we do</span>

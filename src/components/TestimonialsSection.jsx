@@ -13,7 +13,7 @@ export default function TestimonialsSection() {
       className="py-32 bg-surface-container-lowest relative overflow-hidden"
     >
       <motion.div
-        className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px]"
+        className="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-primary/10 rounded-full blur-[100px] md:blur-[150px]"
         animate={{
           x: [0, 50, -30, 0],
           y: [0, -40, 30, 0],
@@ -25,7 +25,7 @@ export default function TestimonialsSection() {
         }}
       />
       <motion.div
-        className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-tertiary/10 rounded-full blur-[150px]"
+        className="absolute bottom-0 left-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-tertiary/10 rounded-full blur-[100px] md:blur-[150px]"
         animate={{
           x: [0, -50, 30, 0],
           y: [0, 40, -30, 0],
@@ -37,7 +37,7 @@ export default function TestimonialsSection() {
         }}
       />
       
-      <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto relative z-10 text-center">
+      <div className="px-5 md:px-20 max-w-container-max mx-auto relative z-10 text-center">
         <motion.span variants={itemFadeUp} className="material-symbols-outlined text-primary text-7xl mb-10 opacity-50 block">
           format_quote
         </motion.span>

@@ -5,7 +5,7 @@ import MoshiMoshiLogo from "@/components/MoshiMoshiLogo";
 export default function Footer() {
   return (
     <footer className="bg-surface-container-lowest w-full pt-24 pb-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 px-8 md:px-margin-desktop max-w-container-max mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 px-5 md:px-20 max-w-container-max mx-auto">
         <div className="lg:col-span-2">
           <MoshiMoshiLogo className="h-10 mb-8 w-auto" />
           <p className="text-on-surface-variant font-body-md mb-10 leading-relaxed max-w-md">
@@ -93,7 +93,7 @@ export default function Footer() {
         </div>
       </div>
       
-      <div className="px-8 md:px-margin-desktop w-full max-w-container-max mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center text-on-surface-variant/40 font-label-sm text-label-sm gap-4">
+      <div className="px-5 md:px-20 w-full max-w-container-max mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center text-on-surface-variant/40 font-label-sm text-label-sm gap-4">
         <p>© 2026 Moshi Moshi AI. Beyond the Horizon.</p>
         <div className="flex gap-8">
           <a className="hover:text-primary transition-colors" href="#">

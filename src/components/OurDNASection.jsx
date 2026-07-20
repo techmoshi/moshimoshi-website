@@ -10,7 +10,7 @@ export default function OurDNASection() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto overflow-hidden"
+      className="py-32 px-5 md:px-20 max-w-container-max mx-auto overflow-hidden"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         <motion.div variants={itemFadeRight}>
@@ -46,7 +46,7 @@ export default function OurDNASection() {
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
             className="glass-card rounded-2xl p-12 relative overflow-hidden aspect-square flex flex-col justify-center text-center cursor-pointer [perspective:1000px]"
           >
-            <div className="text-[120px] font-black text-white/5 absolute -top-10 -left-10 select-none">EXTRA</div>
+            <div className="text-[80px] md:text-[120px] font-black text-white/5 absolute -top-5 md:-top-10 -left-5 md:-left-10 select-none">EXTRA</div>
             <span className="material-symbols-outlined text-primary text-8xl mb-8">star_half</span>
             <h3 className="font-headline-lg text-white mb-4">Not just another agency.</h3>
             <p className="text-on-surface-variant">We are the purple sheeps of the flock, standing out by design.</p>

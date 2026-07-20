@@ -34,7 +34,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-surface-container-lowest/15 backdrop-blur-xl border-b border-white/5 shadow-2xl shadow-primary/5">
-      <div className="flex justify-between items-center h-20 px-8 md:px-margin-desktop max-w-container-max mx-auto">
+      <div className="flex justify-between items-center h-20 px-5 md:px-20 max-w-container-max mx-auto">
         <div className="flex items-center">
           <MoshiMoshiLogo className="h-8 md:h-10 w-auto" />
         </div>
@@ -67,7 +67,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           {/* Request a Quote Button - Triggers Shadcn Dialog */}
           <Dialog>
-            <DialogTrigger className="btn-gradient text-white font-bold px-6 md:px-8 py-2.5 md:py-3 rounded-full active:scale-95 transition-all text-[11px] md:text-label-sm font-label-sm uppercase tracking-wider shadow-lg shadow-primary/20 hover:shadow-primary/45">
+            <DialogTrigger className="btn-gradient text-white font-bold px-4 md:px-8 py-2 md:py-3 rounded-full active:scale-95 transition-all text-[10px] md:text-label-sm font-label-sm uppercase tracking-wider shadow-lg shadow-primary/20 hover:shadow-primary/45 whitespace-nowrap shrink-0">
               Request a Quote
             </DialogTrigger>
             <DialogContent className="sm:max-w-md bg-surface-container border border-primary/20 text-white rounded-xl shadow-2xl p-6 backdrop-blur-2xl">
@@ -153,7 +153,7 @@ export default function Navbar() {
           {/* Mobile Hamburger Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-white w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-full transition-colors"
+            className="md:hidden text-white w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-full transition-colors shrink-0"
           >
             <span className="material-symbols-outlined">
               {mobileMenuOpen ? "close" : "menu"}

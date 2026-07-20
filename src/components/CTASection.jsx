@@ -37,7 +37,7 @@ export default function CTASection() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center"
+      className="py-24 px-5 md:px-20 max-w-container-max mx-auto text-center"
     >
       <div className="glass-card rounded-2xl p-8 md:p-16 border-primary/20 relative overflow-hidden">
         <motion.div

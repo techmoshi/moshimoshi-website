@@ -184,14 +184,14 @@ export default function HeroSection({ onHighlightSections }) {
   };
 
   return (
-    <section className="relative pt-40 pb-20 px-margin-mobile md:px-margin-desktop text-center max-w-container-max mx-auto flex flex-col items-center">
+    <section className="relative pt-40 pb-20 px-5 md:px-20 text-center max-w-container-max mx-auto flex flex-col items-center">
       <div className="absolute inset-0 hero-glow -z-10"></div>
       
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="inline-block px-4 py-1.5 mb-8 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-xs uppercase tracking-widest backdrop-blur-sm"
+        className="inline-block px-4 py-1.5 mb-8 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-[10px] md:text-xs uppercase tracking-widest backdrop-blur-sm"
       >
         The Purple Sheeps of the Flock
       </motion.div>
@@ -231,15 +231,15 @@ export default function HeroSection({ onHighlightSections }) {
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-grow bg-transparent border-none outline-none focus:ring-0 focus:border-none focus:outline-none px-4 py-3 font-body-lg text-body-lg text-white placeholder:text-on-surface-variant/40"
-            placeholder="Tell us your goals (e.g., 'Launch a premium campaign for a real estate project')"
+            className="flex-grow w-full bg-transparent border-none outline-none focus:ring-0 focus:border-none focus:outline-none px-2 md:px-4 py-3 text-sm md:text-body-lg font-body-md md:font-body-lg text-white placeholder:text-on-surface-variant/40 truncate"
+            placeholder="Tell us your goals..."
             type="text"
           />
 
           <button
             type="submit"
             disabled={isSearching}
-            className="btn-gradient w-12 h-12 flex items-center justify-center rounded-full text-white hover:scale-110 active:scale-90 transition-transform shadow-lg disabled:opacity-50"
+            className="btn-gradient w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full text-white hover:scale-110 active:scale-90 transition-transform shadow-lg disabled:opacity-50 shrink-0"
           >
             {isSearching ? (
               <span className="material-symbols-outlined animate-spin" data-icon="sync">

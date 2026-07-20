@@ -32,7 +32,7 @@ export default function InsightsSection() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto overflow-hidden"
+      className="py-24 px-5 md:px-20 max-w-container-max mx-auto overflow-hidden"
     >
       <motion.div variants={itemFadeUp} className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-4">
         <h2 className="font-headline-xl text-4xl md:text-5xl text-white">Our Insights</h2>
