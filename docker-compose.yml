@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  moshimoshi-website:
+    container_name: moshimoshi-website-ctr
+    image: moshimoshi-website-img
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4035:3000"
+    restart: unless-stopped
