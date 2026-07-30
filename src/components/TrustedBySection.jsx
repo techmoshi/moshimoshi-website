@@ -5,7 +5,7 @@ import PartnerLogos from "@/components/PartnerLogos";
 
 export default function TrustedBySection() {
   return (
-    <section className="py-12 bg-surface-container-lowest/50 border-y border-white/5 relative z-10 overflow-hidden">
+    <section className="py-8 md:py-12 bg-surface-container-lowest/50 border-y border-white/5 relative z-10 overflow-hidden">
       <p className="text-center font-label-sm text-on-surface-variant/40 uppercase tracking-[0.2em] mb-10">
         Trusted by global brands
       </p>

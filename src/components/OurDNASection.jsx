@@ -10,12 +10,12 @@ export default function OurDNASection() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="py-32 px-5 md:px-20 max-w-container-max mx-auto overflow-hidden"
+      className="py-16 md:py-32 px-5 md:px-20 max-w-container-max mx-auto overflow-hidden"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         <motion.div variants={itemFadeRight}>
           <span className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-6 block">Our DNA</span>
-          <h2 className="font-headline-xl text-5xl md:text-7xl text-white leading-tight mb-8">
+          <h2 className="font-headline-xl text-5xl md:text-7xl text-white leading-none mb-8">
             The <span className="text-gradient-aurora">Extra</span> in everything we do.
           </h2>
           <p className="text-on-surface-variant font-body-lg mb-10 leading-relaxed max-w-xl">
@@ -38,7 +38,7 @@ export default function OurDNASection() {
             </motion.div>
           </div>
         </motion.div>
-        
+
         <motion.div variants={itemFadeLeft} className="relative">
           <div className="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
           <motion.div

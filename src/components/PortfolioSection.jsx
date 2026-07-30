@@ -18,9 +18,9 @@ export default function PortfolioSection({ highlightedSections = [] }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="py-24 px-5 md:px-20 max-w-container-max mx-auto overflow-hidden"
+      className="py-16 md:py-24 px-5 md:px-20 max-w-container-max mx-auto overflow-hidden"
     >
-      <motion.div variants={itemFadeUp} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+      <motion.div variants={itemFadeUp} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-16 gap-6">
         <div>
           <span className="text-tertiary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-tertiary/20 bg-tertiary/5">
             Recommended for you

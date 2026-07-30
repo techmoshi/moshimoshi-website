@@ -107,9 +107,9 @@ export default function HeroSection({ onHighlightSections }) {
 
       const targetId =
         targets.includes("godrej-case-study") ||
-        targets.includes("uber-case-study") ||
-        targets.includes("titan-case-study") ||
-        targets.includes("underneat-case-study")
+          targets.includes("uber-case-study") ||
+          targets.includes("titan-case-study") ||
+          targets.includes("underneat-case-study")
           ? "portfolio-section"
           : "services-section";
 
@@ -125,7 +125,7 @@ export default function HeroSection({ onHighlightSections }) {
         setIsSearching(true);
         setAiResponse("");
         setHighlightedSections([]);
-        
+
         setTimeout(() => {
           setIsSearching(false);
           const query = tag.toLowerCase();
@@ -166,12 +166,12 @@ export default function HeroSection({ onHighlightSections }) {
 
           setAiResponse(responseText);
           setHighlightedSections(targets);
-          
+
           const targetId =
             targets.includes("godrej-case-study") ||
-            targets.includes("uber-case-study") ||
-            targets.includes("titan-case-study") ||
-            targets.includes("underneat-case-study")
+              targets.includes("uber-case-study") ||
+              targets.includes("titan-case-study") ||
+              targets.includes("underneat-case-study")
               ? "portfolio-section"
               : "services-section";
 
@@ -184,9 +184,9 @@ export default function HeroSection({ onHighlightSections }) {
   };
 
   return (
-    <section className="relative pt-40 pb-20 px-5 md:px-20 text-center max-w-container-max mx-auto flex flex-col items-center">
+    <section className="relative pt-28 pb-12 px-5 md:pt-40 md:pb-20 md:px-20 text-center max-w-container-max mx-auto flex flex-col items-center">
       <div className="absolute inset-0 hero-glow -z-10"></div>
-      
+
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -219,7 +219,7 @@ export default function HeroSection({ onHighlightSections }) {
       {/* AI Discovery Assistant */}
       <div className="w-full max-w-3xl mt-8 relative group z-20">
         <div className="absolute -inset-1 bg-gradient-to-r from-primary via-tertiary to-secondary opacity-20 blur-2xl group-focus-within:opacity-40 transition-opacity"></div>
-        
+
         <form
           onSubmit={handleAISearch}
           className="glass-panel aurora-input-glow relative flex items-center p-2 rounded-full border-primary/30"
@@ -227,7 +227,7 @@ export default function HeroSection({ onHighlightSections }) {
           <span className="material-symbols-outlined ml-4 text-primary" data-icon="auto_awesome">
             auto_awesome
           </span>
-          
+
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

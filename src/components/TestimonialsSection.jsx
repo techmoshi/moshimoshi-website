@@ -10,7 +10,7 @@ export default function TestimonialsSection() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="py-32 bg-surface-container-lowest relative overflow-hidden"
+      className="py-16 md:py-32 bg-surface-container-lowest relative overflow-hidden"
     >
       <motion.div
         className="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-primary/10 rounded-full blur-[100px] md:blur-[150px]"
@@ -38,7 +38,7 @@ export default function TestimonialsSection() {
       />
       
       <div className="px-5 md:px-20 max-w-container-max mx-auto relative z-10 text-center">
-        <motion.span variants={itemFadeUp} className="material-symbols-outlined text-primary text-7xl mb-10 opacity-50 block">
+        <motion.span variants={itemFadeUp} className="material-symbols-outlined text-primary text-7xl mb-6 md:mb-10 opacity-50 block">
           format_quote
         </motion.span>
         <div className="max-w-4xl mx-auto">
@@ -46,7 +46,7 @@ export default function TestimonialsSection() {
             "Moshi Moshi is a trusted digital marketing partner for Increff. The team is very hardworking, competent
             and have done a fine job in executing our critical projects."
           </motion.h2>
-          <motion.div variants={itemFadeUp} className="mt-16 flex flex-col items-center">
+          <motion.div variants={itemFadeUp} className="mt-10 md:mt-16 flex flex-col items-center">
             <div className="w-20 h-20 rounded-full border-2 border-primary/30 p-1 mb-6">
               <div className="w-full h-full bg-surface-bright rounded-full flex items-center justify-center font-bold text-primary text-xl">
                 MR

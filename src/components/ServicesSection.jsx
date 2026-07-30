@@ -68,9 +68,9 @@ export default function ServicesSection({ highlightedSections = [] }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="py-32 px-5 md:px-20 max-w-container-max mx-auto"
+      className="py-16 md:py-32 px-5 md:px-20 max-w-container-max mx-auto"
     >
-      <motion.div variants={itemFadeUp} className="text-center mb-20">
+      <motion.div variants={itemFadeUp} className="text-center mb-10 md:mb-20">
         <span className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">What we do</span>
         <h2 className="font-headline-xl text-4xl md:text-6xl text-white">Our Services</h2>
         <div className="w-24 h-1 bg-gradient-to-r from-primary to-tertiary mx-auto mt-6 rounded-full"></div>

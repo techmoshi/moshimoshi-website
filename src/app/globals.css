@@ -245,6 +245,59 @@
   background: radial-gradient(circle at top right, rgba(0, 220, 230, 0.08) 0%, transparent 60%);
 }
 
+/* About Us Custom Styles */
+.aurora-gradient {
+  background: linear-gradient(135deg, #edb1ff 0%, #9d50bb 50%, #00dce6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.aurora-border {
+  position: relative;
+}
+
+.aurora-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(237, 177, 255, 0.3), rgba(0, 220, 230, 0.3));
+  border-radius: inherit;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.aurora-glow {
+  filter: drop-shadow(0 0 15px rgba(157, 80, 187, 0.2));
+}
+
+.floating-action {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Careers Custom Styles */
+.aurora-blur {
+  position: fixed;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(157, 80, 187, 0.15) 0%, rgba(157, 80, 187, 0) 70%);
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+.aurora-1 { top: -20%; left: -10%; }
+.aurora-2 { bottom: -10%; right: -10%; background: radial-gradient(circle, rgba(0, 220, 230, 0.1) 0%, rgba(0, 220, 230, 0) 70%); }
+
+.bento-item { transition: transform 0.5s ease; }
+.bento-item:hover { transform: scale(1.02); }
+
 /* Custom Font Family Utilities */
 .font-body-md {
   font-family: var(--font-inter), sans-serif;

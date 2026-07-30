@@ -19,10 +19,10 @@ export default function FeaturedInSection() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      className="py-24 bg-surface/5 border-y border-white/5 overflow-hidden"
+      className="py-16 md:py-24 bg-surface/5 border-y border-white/5 overflow-hidden"
     >
       <div className="px-5 md:px-20 max-w-container-max mx-auto">
-        <motion.p variants={itemFadeUp} className="text-center font-label-sm text-white/80 uppercase tracking-[0.2em] mb-12">Featured In</motion.p>
+        <motion.p variants={itemFadeUp} className="text-center font-label-sm text-white/80 uppercase tracking-[0.2em] mb-8 md:mb-12">Featured In</motion.p>
         <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20">
           {publications.map((pub) => (
             <motion.div key={pub.name} variants={itemFadeUp} className="flex items-center opacity-60 hover:opacity-100 transition-all h-8">
