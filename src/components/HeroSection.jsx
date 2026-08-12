@@ -184,8 +184,8 @@ export default function HeroSection({ onHighlightSections }) {
   };
 
   return (
-    <section className="relative pt-28 pb-12 px-5 md:pt-40 md:pb-20 md:px-20 text-center max-w-container-max mx-auto flex flex-col items-center">
-      <div className="absolute inset-0 hero-glow -z-10"></div>
+    <section className="relative pt-28 pb-12 px-5 md:pt-40 md:pb-20 md:px-20 text-center max-w-container-max mx-auto flex flex-col items-center min-h-screen">
+      <div className="absolute inset-0 hero-glow -z-10 "></div>
 
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
