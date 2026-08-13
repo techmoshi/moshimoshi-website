@@ -375,3 +375,24 @@
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+
+/* Dante AI Widget customization */
+.dante-launcher,
+.dante-widget,
+.dante-branding,
+.dante-panel-footer,
+[class*="branding"],
+[class*="powered"],
+[class*="Powered"],
+a[href*="dante-ai"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Moshi Moshi Dark Theme Overlay for Dante AI Engine */
+.dante-dark-engine {
+  filter: invert(0.92) hue-rotate(190deg) contrast(1.1);
+  background: #101221 !important;
+}
+
