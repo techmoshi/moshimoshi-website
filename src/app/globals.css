@@ -378,16 +378,8 @@
 
 /* Dante AI Widget customization */
 .dante-launcher,
-.dante-widget,
-.dante-branding,
-.dante-panel-footer,
-[class*="branding"],
-[class*="powered"],
-[class*="Powered"],
-a[href*="dante-ai"] {
+.dante-widget {
   display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
 }
 
 /* Moshi Moshi Dark Theme Overlay for Dante AI Engine */

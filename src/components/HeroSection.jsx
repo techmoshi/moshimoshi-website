@@ -251,11 +251,6 @@ export default function HeroSection({ onHighlightSections }) {
                   title="Moshi Moshi AI Strategy Engine"
                   allow="microphone"
                   className="w-full h-[450px] border-0 rounded-2xl dante-dark-engine"
-                  onLoad={() => {
-                    if (activeQuery) {
-                      setTimeout(() => sendPromptToDante(activeQuery), 300);
-                    }
-                  }}
                 />
               </div>
 
