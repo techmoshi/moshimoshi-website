@@ -6,10 +6,17 @@ import gsap from "gsap";
 
 export default function HeroSection({ onHighlightSections }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeQuery, setActiveQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [aiResponse, setAiResponse] = useState("");
+  const [showAICard, setShowAICard] = useState(false);
   const [highlightedSections, setHighlightedSections] = useState([]);
+  const [mounted, setMounted] = useState(false);
   const tagsRef = useRef(null);
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Notify parent of highlighted sections changes
   useEffect(() => {
@@ -37,154 +44,86 @@ export default function HeroSection({ onHighlightSections }) {
     }
   }, []);
 
-  // AI search submission handler
+  // Post prompt to Dante AI iframe in Home Banner
+  const sendPromptToDante = (queryText) => {
+    if (!queryText) return;
+    try {
+      if (iframeRef.current && iframeRef.current.contentWindow) {
+        iframeRef.current.contentWindow.postMessage(
+          { type: "dante:send-prompt", text: queryText },
+          "*"
+        );
+      }
+    } catch (_err) {
+      console.log("Could not postMessage to Dante iframe", _err);
+    }
+  };
+
+  // Listen for iframe ready event to send active query
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if (e.data && e.data.type === "dante:ready") {
+        if (activeQuery) {
+          sendPromptToDante(activeQuery);
+        }
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [activeQuery]);
+
+  // Helper to trigger Dante AI response & target highlights in Home Banner
+  const triggerDanteAIResponse = (queryText) => {
+    if (!queryText || !queryText.trim()) return;
+
+    const trimmedQuery = queryText.trim();
+    setIsSearching(true);
+    setShowAICard(true);
+    setActiveQuery(trimmedQuery);
+
+    // Determine target highlighted sections for scrolling
+    const query = trimmedQuery.toLowerCase();
+    let targets = [];
+    if (query.includes("brand") || query.includes("identity") || query.includes("consult")) {
+      targets = ["brand-consultancy", "godrej-case-study"];
+    } else if (query.includes("web") || query.includes("ui") || query.includes("ux") || query.includes("app")) {
+      targets = ["website-ui-ux", "web-mobile-app", "underneat-case-study"];
+    } else if (query.includes("marketing") || query.includes("digital") || query.includes("seo")) {
+      targets = ["digital-marketing", "influencer-marketing", "uber-case-study"];
+    } else if (query.includes("video") || query.includes("animation") || query.includes("3d") || query.includes("cgi")) {
+      targets = ["live-videos", "animation-service", "titan-case-study"];
+    } else if (query.includes("pr") || query.includes("public")) {
+      targets = ["pr-service"];
+    } else {
+      targets = ["brand-consultancy", "digital-marketing"];
+    }
+    setHighlightedSections(targets);
+
+    // Dispatch prompt to Dante AI iframe
+    setTimeout(() => {
+      sendPromptToDante(trimmedQuery);
+      setIsSearching(false);
+    }, 400);
+  };
+
   const handleAISearch = (e) => {
     e?.preventDefault();
     if (!searchQuery.trim()) return;
-
-    setIsSearching(true);
-    setAiResponse("");
-    setHighlightedSections([]);
-
-    setTimeout(() => {
-      setIsSearching(false);
-      const query = searchQuery.toLowerCase();
-      let responseText = "";
-      let targets = [];
-
-      if (query.includes("brand") || query.includes("consult") || query.includes("identity")) {
-        responseText = "We recommend our Brand Consultancy services and the Godrej Lakeside Orchard case study.";
-        targets = ["brand-consultancy", "godrej-case-study"];
-      } else if (
-        query.includes("web") ||
-        query.includes("ui") ||
-        query.includes("ux") ||
-        query.includes("app") ||
-        query.includes("mobile") ||
-        query.includes("design") ||
-        query.includes("development")
-      ) {
-        responseText = "We recommend our Website UI/UX and Web/Mobile Application services, as well as the UnderNeat case study.";
-        targets = ["website-ui-ux", "web-mobile-app", "underneat-case-study"];
-      } else if (
-        query.includes("marketing") ||
-        query.includes("digital") ||
-        query.includes("seo") ||
-        query.includes("sem") ||
-        query.includes("growth")
-      ) {
-        responseText = "We recommend our Digital Marketing and Influencer Marketing services, alongside our Uber for Business campaign strategy.";
-        targets = ["digital-marketing", "influencer-marketing", "uber-case-study"];
-      } else if (
-        query.includes("video") ||
-        query.includes("animation") ||
-        query.includes("cgi") ||
-        query.includes("3d") ||
-        query.includes("2d") ||
-        query.includes("motion")
-      ) {
-        responseText = "We recommend our Live Videos and 2D/3D Animation production services, alongside the Titan Flying Tourbillon project.";
-        targets = ["live-videos", "animation-service", "titan-case-study"];
-      } else if (query.includes("pr") || query.includes("public") || query.includes("reputation")) {
-        responseText = "We recommend our PR (Public Relations) services to manage corporate reputation and build media authority.";
-        targets = ["pr-service"];
-      } else if (query.includes("godrej") || query.includes("real estate") || query.includes("lake") || query.includes("property")) {
-        responseText = "Take a look at the Godrej Lakeside Orchard Case Study. We recommend our Brand Consultancy and CGI Animation services.";
-        targets = ["godrej-case-study", "brand-consultancy", "animation-service"];
-      } else if (query.includes("uber") || query.includes("mobility") || query.includes("travel")) {
-        responseText = "Take a look at our Uber for Business Case Study. We recommend our Digital Marketing and PR services.";
-        targets = ["uber-case-study", "digital-marketing", "pr-service"];
-      } else if (query.includes("titan") || query.includes("watch") || query.includes("luxury")) {
-        responseText = "Take a look at our Titan Flying Tourbillon Case Study. We recommend our 2D/3D Animation and Web UI/UX services.";
-        targets = ["titan-case-study", "animation-service", "website-ui-ux"];
-      } else {
-        responseText = "Based on your goal, we recommend our Brand Consultancy and Digital Marketing services to drive engagement.";
-        targets = ["brand-consultancy", "digital-marketing"];
-      }
-
-      setAiResponse(responseText);
-      setHighlightedSections(targets);
-
-      const targetId =
-        targets.includes("godrej-case-study") ||
-          targets.includes("uber-case-study") ||
-          targets.includes("titan-case-study") ||
-          targets.includes("underneat-case-study")
-          ? "portfolio-section"
-          : "services-section";
-
-      document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 1500);
+    triggerDanteAIResponse(searchQuery);
   };
 
-  // Preset tag click handler
   const handleTagClick = (tag) => {
     setSearchQuery(tag);
-    setTimeout(() => {
-      setSearchQuery((currentQuery) => {
-        setIsSearching(true);
-        setAiResponse("");
-        setHighlightedSections([]);
+    triggerDanteAIResponse(tag);
+  };
 
-        setTimeout(() => {
-          setIsSearching(false);
-          const query = tag.toLowerCase();
-          let responseText = "";
-          let targets = [];
-
-          if (query.includes("brand consultancy")) {
-            responseText = "We recommend our Brand Consultancy service and the Godrej Lakeside Orchard case study.";
-            targets = ["brand-consultancy", "godrej-case-study"];
-          } else if (query.includes("website ui/ux")) {
-            responseText = "We recommend our Website UI/UX service and the UnderNeat case study.";
-            targets = ["website-ui-ux", "underneat-case-study"];
-          } else if (query.includes("digital marketing")) {
-            responseText = "We recommend our Digital Marketing and Influencer Marketing services.";
-            targets = ["digital-marketing", "influencer-marketing"];
-          } else if (query.includes("real estate")) {
-            responseText = "We recommend our real estate branding. Check out the Godrej Lakeside Orchard case study.";
-            targets = ["godrej-case-study", "brand-consultancy"];
-          } else if (query.includes("mobility")) {
-            responseText = "We recommend corporate mobility campaigns. Check out the Uber for Business case study.";
-            targets = ["uber-case-study", "digital-marketing"];
-          } else if (query.includes("fintech")) {
-            responseText = "We recommend our Brand Consultancy and UI/UX design services for Fintech solutions.";
-            targets = ["brand-consultancy", "website-ui-ux"];
-          } else if (query.includes("apparel")) {
-            responseText = "We recommend our Influencer Marketing and Branding. Check out UnderNeat by Kusha Kapila.";
-            targets = ["underneat-case-study", "influencer-marketing"];
-          } else if (query.includes("pr (public relations)")) {
-            responseText = "We recommend our PR and reputation management services.";
-            targets = ["pr-service"];
-          } else if (query.includes("influencer marketing")) {
-            responseText = "We recommend our Influencer Marketing and Live Video production services.";
-            targets = ["influencer-marketing", "live-videos"];
-          } else {
-            responseText = `We recommend our specialized services in ${tag} and digital acceleration.`;
-            targets = [];
-          }
-
-          setAiResponse(responseText);
-          setHighlightedSections(targets);
-
-          const targetId =
-            targets.includes("godrej-case-study") ||
-              targets.includes("uber-case-study") ||
-              targets.includes("titan-case-study") ||
-              targets.includes("underneat-case-study")
-              ? "portfolio-section"
-              : "services-section";
-
-          document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 1200);
-
-        return tag;
-      });
-    }, 50);
+  const handleScrollToTarget = (targetId) => {
+    const sectionId = targetId.includes("case-study") ? "portfolio-section" : "services-section";
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   return (
-    <section className="relative h-screen w-full px-5 md:px-20 text-center flex flex-col items-center justify-center">
+    <section className="relative min-h-screen w-full px-5 md:px-20 text-center flex flex-col items-center justify-center py-20">
       <div className="absolute inset-0 hero-glow -z-10 "></div>
 
       <motion.div
@@ -196,9 +135,7 @@ export default function HeroSection({ onHighlightSections }) {
         The Purple Sheeps of the Flock
       </motion.div>
 
-      <h1
-        className="font-headline-xl text-headline-lg-mobile md:text-headline-xl max-w-5xl mx-auto mb-8 text-white leading-[1.1] select-none"
-      >
+      <h1 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl max-w-5xl mx-auto mb-8 text-white leading-[1.1] select-none">
         {"How can we help grow your business today?".split(" ").map((word, idx) => (
           <motion.span
             key={idx}
@@ -216,8 +153,8 @@ export default function HeroSection({ onHighlightSections }) {
         ))}
       </h1>
 
-      {/* AI Discovery Assistant */}
-      <div className="w-full max-w-3xl mt-8 relative group z-20">
+      {/* AI Discovery Assistant Form */}
+      <div className="w-full max-w-3xl mt-4 relative group z-20">
         <div className="absolute -inset-1 bg-gradient-to-r from-primary via-tertiary to-secondary opacity-20 blur-2xl group-focus-within:opacity-40 transition-opacity"></div>
 
         <form
@@ -253,39 +190,101 @@ export default function HeroSection({ onHighlightSections }) {
           </button>
         </form>
 
-        {/* AI Assistant Output Card */}
+        {/* Custom Moshi Moshi Glassmorphic AI Strategy Card running Dante AI */}
         <AnimatePresence>
-          {aiResponse && (
+          {showAICard && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mt-6 p-4 rounded-xl glass-card border border-primary/40 text-left flex items-start gap-3 shadow-lg max-w-xl mx-auto"
+              initial={{ opacity: 0, y: 20, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.97 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6 w-full max-w-2xl mx-auto rounded-3xl glass-card border border-primary/30 shadow-2xl p-5 md:p-6 text-left relative overflow-hidden backdrop-blur-2xl"
             >
-              <span className="material-symbols-outlined text-primary text-xl" data-icon="auto_awesome">
-                auto_awesome
-              </span>
-              <div>
-                <div className="flex items-center gap-2">
-                  <p className="text-white font-bold text-sm">AI Recommendation</p>
-                  <button
-                    onClick={() => {
-                      setAiResponse("");
-                      setHighlightedSections([]);
-                    }}
-                    className="text-on-surface-variant/50 hover:text-white text-xs ml-auto"
-                  >
-                    Clear
-                  </button>
+              {/* Background Ambient Glow */}
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+
+              {/* Moshi Moshi Custom Card Header */}
+              <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4 mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-primary via-tertiary to-secondary p-0.5 shadow-lg flex items-center justify-center">
+                    <div className="w-full h-full bg-[#101221] rounded-[14px] flex items-center justify-center text-primary">
+                      <span className="material-symbols-outlined text-xl" data-icon="auto_awesome">
+                        auto_awesome
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-white font-bold text-base tracking-tight">Moshi Moshi AI Strategy Engine</h3>
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/20 border border-primary/30 text-primary text-[10px] font-semibold">
+                        <span className="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+                        Live Strategy Engine
+                      </span>
+                    </div>
+                    {activeQuery && (
+                      <p className="text-on-surface-variant/70 text-xs mt-0.5 truncate max-w-md">
+                        Goal: &quot;{activeQuery}&quot;
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <p className="text-on-surface-variant text-sm mt-1">{aiResponse}</p>
+
+                <button
+                  onClick={() => {
+                    setShowAICard(false);
+                    setHighlightedSections([]);
+                  }}
+                  className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 text-on-surface-variant hover:text-white flex items-center justify-center transition-colors border border-white/10 shrink-0"
+                  title="Dismiss Strategy Card"
+                >
+                  <span className="material-symbols-outlined text-base" data-icon="close">
+                    close
+                  </span>
+                </button>
               </div>
+
+              {/* Moshi Moshi Proprietary Engine Panel */}
+              <div className="relative w-full rounded-2xl overflow-hidden bg-[#101221] border border-white/10 shadow-inner">
+                <iframe
+                  ref={iframeRef}
+                  src="https://www.dante-ai.com/widget/panel?agentId=d3d5df1e-e725-43da-b551-b98905bd3953&key=wk_mkEFmBJ6j1PV4hPvXuvTRQoQZDNoYIDf"
+                  title="Moshi Moshi AI Strategy Engine"
+                  allow="microphone"
+                  className="w-full h-[450px] border-0 rounded-2xl dante-dark-engine"
+                />
+              </div>
+
+              {/* Interactive Action Badges */}
+              {highlightedSections.length > 0 && (
+                <div className="pt-4 border-t border-white/10 mt-4 flex items-center justify-between flex-wrap gap-3">
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-sm" data-icon="ads_click">
+                      ads_click
+                    </span>
+                    Explore Recommended Services &amp; Portfolio
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {highlightedSections.map((target) => (
+                      <button
+                        key={target}
+                        onClick={() => handleScrollToTarget(target)}
+                        className="px-3.5 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 border border-primary/30 text-primary text-xs font-medium flex items-center gap-1.5 transition-all duration-200 hover:scale-105 shadow-sm"
+                      >
+                        <span>View {target.replace("-service", "").replace("-case-study", "").replace(/-/g, " ")}</span>
+                        <span className="material-symbols-outlined text-xs" data-icon="arrow_downward">
+                          arrow_downward
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Category Filters / Industry Tags */}
-        <div ref={tagsRef} className="flex flex-wrap justify-center gap-3 mt-10 max-w-4xl">
+        <div ref={tagsRef} className="flex flex-wrap justify-center gap-3 mt-8 max-w-4xl">
           {[
             "Brand Consultancy",
             "Website UI/UX",
